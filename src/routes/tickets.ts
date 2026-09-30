@@ -6,8 +6,8 @@ import { getTotalHoursForTicket, insertTimeLog } from '../dal/timeLogs.js';
 
 const router = Router();
 
-// TODO: Student implementation - Part 1: Ticket Routes
 // GET /tickets
+//get all tickets
 router.get('/', async function (req, res) {
     const { limit, offset, status } = req.query;
     const tickets = await getAllTickets({ 
@@ -18,17 +18,19 @@ router.get('/', async function (req, res) {
     return res.json(tickets);
     })
     // GET /tickets/:id
+    // get single ticket via id
 router.get('/:id', async function (req, res) {
     const { id } = req.params
     const idNum = +id;
     const ticket = await getTicketById(idNum);
-    if (ticket === undefined) { //go back and make this undefind, but otherwise should be good
+    if (ticket === undefined) { 
         return res.status(404).json({error: 'Not Found'})
     } else { 
         return res.json(ticket)
     }
 })
 // POST /tickets
+//create new ticket
 router.post('/', authMiddleware, async function (req, res) {
     const creator_id = res.locals.userId
     const { title, description } = req.body;
@@ -37,6 +39,7 @@ router.post('/', authMiddleware, async function (req, res) {
 });
 
 // PATCH /tickets/:id/status
+//update the ticket
 router.patch('/:id/status', authMiddleware, async function (req, res) {
     const { id } = req.params;
     const idNum = +id;
@@ -46,8 +49,8 @@ router.patch('/:id/status', authMiddleware, async function (req, res) {
 
 });
 
-// TODO: Student implementation - Part 2: Time Log Routes
 // POST /tickets/:id/time
+//add timelog to ticket
 router.post('/:id/time', authMiddleware, async function (req, res) {
     const { id } = req.params;
     const idNum = +id;
@@ -58,6 +61,7 @@ router.post('/:id/time', authMiddleware, async function (req, res) {
 
 })
 // GET /tickets/:id/time
+//get total hours on a ticket
 router.get('/:id/time', async function (req, res) {
     const { id } = req.params;
     const idNum = +id;

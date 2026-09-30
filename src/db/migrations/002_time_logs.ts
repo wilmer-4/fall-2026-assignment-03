@@ -12,7 +12,7 @@ import { Kysely , sql} from 'kysely';
 // The down() method should drop the `time_logs` table.
 
 export async function up(db: Kysely<any>): Promise<void> {
-  // TODO: Student implementation
+  // create the time log table and add neccessary columns
   await db.schema
   .createTable('time_logs')
   .addColumn('id', 'serial', (col) => col.primaryKey())
@@ -24,7 +24,7 @@ export async function up(db: Kysely<any>): Promise<void> {
 }
 
 export async function down(db: Kysely<any>): Promise<void> {
-  // TODO: Student implementation
+  // drop timelog table
 
   await db.schema.dropTable('time_logs').execute();
 }

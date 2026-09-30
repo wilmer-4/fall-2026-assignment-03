@@ -7,7 +7,7 @@ export async function insertTimeLog(
   userId: number,
   hours: number,
 ): Promise<any> {
-  // TODO: Student implementation
+  // Add time log for users and tickets
   await db
   .insertInto('time_logs')
   .values({
@@ -22,7 +22,7 @@ export async function insertTimeLog(
 export async function getTotalHoursForTicket(
   ticketId: number,
 ): Promise<number> {
-  // TODO: Student implementation
+  // calculate total hours on a ticket
   const total = await db
   .selectFrom('time_logs')
   .select(({ fn }) => fn.sum('hours').as('totalHours'))
