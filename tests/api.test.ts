@@ -5,7 +5,6 @@ import { userInfo } from 'os';
 
 describe('Part 1: API Integration Tests', () => {
   //it('should pass placeholder test', () => {
-    // TODO: Student implementation - Part 1: Integration Testing
     // Test user creation (POST /users)
   it('should create user', async () => {
       const response = await request(app)
@@ -51,25 +50,25 @@ describe('Part 1: API Integration Tests', () => {
   it('should handle nonexistant user', async () => {
     
     const response = await request(app)
-    .get('/user/12');
+    .get('/user/12000'); //increased from 12 as 12 might be reached in certain test
 
     expect(response.status).toBe(404);
 });
   it('should handle nonexistant ticket', async () => {
     
     const response = await request(app)
-    .get('/tickets/12');
+    .get('/tickets/12000'); ////increased from 12 as 12 might be reached in certain test
 
     expect(response.status).toBe(404);
 });
-
+ // Test pagination and filtering on GET /tickets
   it('should have pignattion logic', async () => {
     const response = await request(app)
     .get('/tickets?limit=10&offset=0');
 
     expect(response.status).toBe(200);
   });
-    // Test pagination and filtering on GET /tickets
+  
     //expect(true).toBe(true);
   });
 
